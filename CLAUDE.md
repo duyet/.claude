@@ -33,4 +33,4 @@
 - Do not remove, hide or rename existing features or UI options unless I am explicitly asking for it. If something isn't fully wired yet, keep the UX surface intact and stub/annotate it instead of removing it.
 - Your context window will be automatically compacted as it approaches its limit. Never stop tasks early due to token budget concerns. Always complete tasks fully, even if the end of your budget is approaching.
 - In PLAN mode, always plan and break down tasks for asking multiple agents (e.g., a senior agent for simple tasks or an agent leader for complex ones) to work in parallel and maximize efficiency as needed.
-
+- During implementation, assign the tasks for senior and junior engineers to working in parallel for maximum speed. Simple and straightforward tasks assign to junior and more complex one assign to senior engineer agents.
