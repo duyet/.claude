@@ -3,7 +3,6 @@
 @COMMANDS.md
 @PRINCIPLES.md
 @RULES.md
-@MCP.md
 @ORCHESTRATOR.md
 
 
@@ -20,17 +19,30 @@
 @MCP_Context7.md
 @MCP_Sequential.md
 
-
 # Git Workflow
 
-- commit message must follow semantic commit rule, scope should be consistent
-- commit using simple english and avoid complex and fancy words like "comprehensive", "elaborate", "detailed", "extensive", ...
+- follow semantic commit format with consistent scope
+- use simple English—avoid words like "comprehensive", "elaborate", "extensive"
 
-# Note
+# Shortcuts
 
-- Early development, no users. No backward compatibility concerns. Do thing RIGHT: clean, organized, modular, scalable, no technical debt. Never create compatibility shims.
-- WE NEVER WANT WORKAROUNDS. We always want FULL IMPLEMENTATIONS of features that are long term sustainable and maintainable for > 10000 users. So don't come up with half backed workarounds or hacks. Always do things the RIGHT way.
-- Do not remove, hide or rename existing features or UI options unless I am explicitly asking for it. If something isn't fully wired yet, keep the UX surface intact and stub/annotate it instead of removing it.
-- Your context window will be automatically compacted as it approaches its limit. Never stop tasks early due to token budget concerns. Always complete tasks fully, even if the end of your budget is approaching.
-- In PLAN mode, always plan and break down tasks for asking multiple agents (e.g., a senior agent for simple tasks or an agent leader for complex ones) to work in parallel and maximize efficiency as needed.
-- During implementation, assign the tasks for senior and junior engineers to working in parallel for maximum speed. Simple and straightforward tasks assign to junior and more complex one assign to senior engineer agents.
+- `cm` → commit changes (`/commit:commit`)
+- `cp` → commit and push (`/commit:and-push`)
+- `ok`, `c`, `continue` → acknowledge and continue
+- `p`, `parallel` → assign tasks to multiple agents in parallel
+
+# Notes
+
+- Early stage, no users. No backward compatibility concerns
+- Do things RIGHT: clean, organized, modular, scalable, zero technical debt
+- Never create compatibility shims or workarounds—always full implementations
+- Build for 10,000+ users: sustainable, maintainable, no half-baked hacks
+- Never remove, hide, or rename existing features/UI unless explicitly requested
+- If something isn't wired yet, keep UX surface intact—stub or annotate instead
+- Context window auto-compacts near limit; never stop tasks early
+- Save progress to memory before context refresh
+- Delegate to sub-agents proactively when context nears limit
+- In PLAN mode: break down tasks for parallel agent execution
+- Assign simple tasks to junior agents, complex tasks to senior agents
+- Use sub-agents whenever possible to maximize parallelism
+- Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
