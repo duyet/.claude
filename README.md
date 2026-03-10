@@ -57,6 +57,18 @@ npx skills add https://github.com/langchain-ai/langchain-skills --skill langgrap
 npx skills add https://github.com/langchain-ai/deepagents --skill langgraph-docs
 ```
 
+### Claude Marketplace
+
+Install plugins from marketplace:
+
+```bash
+# Official plugins
+claude plugin marketplace add anthropics/claude-plugins-official
+
+# My custom plugins
+claude plugin marketplace add duyet/claude-plugins
+```
+
 ## Basic Workflow
 
 1. **`/batch`** or plan mode — Break down task into parallel workstreams
