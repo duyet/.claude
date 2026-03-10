@@ -37,6 +37,9 @@ npx skills add https://github.com/anthropics/skills --skill pdf
 
 # Team coordination
 npx skills add https://github.com/duyet/claude-plugins --skill team-coordination
+
+# shadcn/ui
+npx skills add https://github.com/shadcn/ui --skill shadcn
 ```
 
 ## Basic Workflow

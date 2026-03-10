@@ -1,28 +1,13 @@
 # Entry Point
 
-@COMMANDS.md
 @PRINCIPLES.md
 @RULES.md
-@ORCHESTRATOR.md
-
-
-# Behavioral Modes
-@MODE_Brainstorming.md
-@MODE_Business_Panel.md
-@MODE_DeepResearch.md
-@MODE_Introspection.md
-@MODE_Orchestration.md
-@MODE_Task_Management.md
-@MODE_Token_Efficiency.md
-
-# MCP Documentation
-@MCP_Context7.md
-@MCP_Sequential.md
+@MODES.md
 
 # Git Workflow
 
-- follow semantic commit format with consistent scope
-- use simple English—avoid words like "comprehensive", "elaborate", "extensive"
+- Follow semantic commit format with consistent scope
+- Use simple English—avoid words like "comprehensive", "elaborate", "extensive"
 
 # Shortcuts
 
@@ -43,6 +28,7 @@
 - Save progress to memory before context refresh
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution
-- Assign simple tasks to junior agents, complex tasks to senior agents
 - Use sub-agents whenever possible to maximize parallelism
+- Assign simple tasks to junior agents, complex tasks to senior agents
+- Always spawn a team to work in parallel if possible
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
