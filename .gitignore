@@ -1,0 +1,56 @@
+# Security and state files
+security_warnings_state_*.json
+mcp-needs-auth-cache.json
+
+# Logs and debug
+logs/
+*.log
+debug/
+shell-snapshots/
+
+# Cache and temporary files
+cache/
+paste-cache/
+stats-cache.json
+statusline-*.json
+file-history/
+transcripts/
+usage-data/
+telemetry/
+
+# Session and task files
+tasks/
+todos/
+teams/
+plans/
+projects/
+
+# Scheduled tasks
+scheduled_tasks.lock
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Local configuration
+settings.json
+settings.local.json
+.superclaude-metadata.json
+statusline.config.json
+
+# Build and backup artifacts
+backups/
+history.jsonl
+
+# Skills (symlinks to global skills)
+skills/
+
+# User-specific scripts
+statusline-*.sh
+statsig/
+
+# Browser and chrome
+chrome/
+
+# Plugins and external tools
+plugins/
