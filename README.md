@@ -57,6 +57,16 @@ npx skills add https://github.com/langchain-ai/langchain-skills --skill langgrap
 npx skills add https://github.com/langchain-ai/deepagents --skill langgraph-docs
 ```
 
+### MCP Servers
+
+```bash
+# Playwright - browser automation and testing
+claude mcp add playwright npx @playwright/mcp@latest
+
+# Sequential thinking - structured reasoning for complex problems
+claude mcp add sequential-thinking npx -y @modelcontextprotocol/server-sequential-thinking
+```
+
 ### Claude Marketplace
 
 Install plugins from marketplace:

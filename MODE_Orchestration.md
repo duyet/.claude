@@ -1,67 +1,72 @@
 # Orchestration Mode
 
-**Purpose**: Intelligent tool selection mindset for optimal task routing and resource efficiency
+**Purpose**: Intelligent tool selection and parallel execution for optimal task routing.
 
 ## Activation Triggers
 - Multi-tool operations requiring coordination
-- Performance constraints (>75% resource usage)
-- Parallel execution opportunities (>3 files)
+- Parallel execution opportunities (3+ independent subtasks)
 - Complex routing decisions with multiple valid approaches
-
-## Behavioral Changes
-- **Smart Tool Selection**: Choose most powerful tool for each task type
-- **Resource Awareness**: Adapt approach based on system constraints
-- **Parallel Thinking**: Identify independent operations for concurrent execution
-- **Efficiency Focus**: Optimize tool usage for speed and effectiveness
+- Context window nearing limits
 
 ## Tool Selection Matrix
 
 | Task Type | Best Tool | Alternative |
 |-----------|-----------|-------------|
-| UI components | Magic MCP | Manual coding |
-| Deep analysis | Sequential MCP | Native reasoning |
-| Symbol operations | Serena MCP | Manual search |
-| Pattern edits | Morphllm MCP | Individual edits |
-| Documentation | Context7 MCP | Web search |
-| Browser testing | Playwright MCP | Unit tests |
-| Multi-file edits | MultiEdit | Sequential Edits |
-| Infrastructure config | WebFetch (official docs) | Assumption-based (❌ forbidden) |
+| Find files by pattern | Glob | Bash (find) |
+| Search file contents | Grep | Agent (Explore) |
+| Broad codebase exploration | Agent (Explore) | Multiple Grep/Glob |
+| Library/framework docs | Context7 MCP | WebSearch → WebFetch |
+| GitHub repo exploration | zread MCP | WebFetch |
+| Multi-file refactoring | Agent (team-agents:senior-engineer) | Sequential Edit |
+| Architecture planning | Agent (Plan) | Manual analysis |
+| Complex implementation | Agent (team-agents:leader) | Agent (senior-engineer) |
+| Simple targeted tasks | Agent (team-agents:junior-engineer) | Direct Edit |
+| Code review | Agent (feature-dev:code-reviewer) | Manual Read |
+| Feature architecture | Agent (feature-dev:code-architect) | Agent (Plan) |
+| Codebase understanding | Agent (feature-dev:code-explorer) | Agent (Explore) |
+| Web research | WebSearch | WebFetch |
+| Test execution | Bash | Agent (background) |
+| Infrastructure config | WebFetch (official docs first) | Context7 MCP |
 
-## Infrastructure Configuration Validation
+## Parallel Execution Strategy
 
-**Critical Rule**: Infrastructure and technical configuration changes MUST consult official documentation before making recommendations.
+### When to Parallelize
+- 3+ independent file reads or searches
+- Multiple Agent tasks with no dependencies
+- Independent research queries
+- Test suite + lint + typecheck
 
-**Auto-Triggers for Infrastructure Tasks**:
-- **Keywords**: Traefik, nginx, Apache, HAProxy, Caddy, Envoy, Docker, Kubernetes, Terraform, Ansible
-- **File Patterns**: `*.toml`, `*.conf`, `traefik.yml`, `nginx.conf`, `*.tf`, `Dockerfile`
-- **Required Actions**:
-  1. **WebFetch official documentation** before any technical recommendation
-  2. Activate MODE_DeepResearch for infrastructure investigation
-  3. BLOCK assumption-based configuration changes
+### How to Parallelize
+- **Same message**: Multiple tool calls in one response
+- **Agent background**: `run_in_background: true` for independent work
+- **Agent worktree**: `isolation: "worktree"` for isolated code changes
+- **Team agents**: Use `team-agents:leader` to coordinate parallel workstreams
 
-**Rationale**: Infrastructure misconfiguration can cause production outages. Always verify against official documentation (e.g., Traefik docs for port configuration, nginx docs for proxy settings).
+### Dependency Ordering
+- Sequential when output of step N feeds into step N+1
+- Parallel when steps are independent
+- Mixed: start independent tasks first, then chain dependent ones
 
-**Enforcement**: This rule enforces the "Evidence > assumptions" principle from PRINCIPLES.md for infrastructure operations.
+## Infrastructure Configuration Rules
 
-## Resource Management
+**Critical**: Infrastructure and config changes MUST consult official documentation first.
 
-**🟢 Green Zone (0-75%)**
-- Full capabilities available
-- Use all tools and features
-- Normal verbosity
+- **Keywords**: Traefik, nginx, Docker, Kubernetes, Terraform, etc.
+- **Process**: WebFetch official docs → verify syntax → implement
+- **Never**: Assume config syntax from memory alone
 
-**🟡 Yellow Zone (75-85%)**
-- Activate efficiency mode
-- Reduce verbosity
-- Defer non-critical operations
+## Context Window Management
 
-**🔴 Red Zone (85%+)**
-- Essential operations only
-- Minimal output
-- Fail fast on complex requests
+### Green Zone (plenty of context)
+- Full capabilities, normal verbosity
+- Use all tools freely
 
-## Parallel Execution Triggers
-- **3+ files**: Auto-suggest parallel processing
-- **Independent operations**: Batch Read calls, parallel edits
-- **Multi-directory scope**: Enable delegation mode
-- **Performance requests**: Parallel-first approach
+### Yellow Zone (context getting large)
+- Delegate complex subtasks to Agent (preserves main context)
+- Save progress to memory directory
+- Reduce verbosity in responses
+
+### Red Zone (context near limit)
+- Save all progress to memory immediately
+- Delegate remaining work to agents
+- Use token efficiency symbols
