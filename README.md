@@ -16,6 +16,8 @@ My `.claude` configuration for Claude Code.
 | `/fix-and-push` | Execute tasks with testing and automatic commits |
 | `/pr-manager` | Pull request monitoring and management |
 | `/ultrathink` | Deep analysis with sequential reasoning |
+| `/commit:commit` | Create semantic commit |
+| `/commit:and-push` | Commit and push to remote |
 
 ### Suggested Skills
 
