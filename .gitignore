@@ -54,3 +54,8 @@ chrome/
 
 # Plugins and external tools
 plugins/
+
+# Local agents and commands
+_agents/
+commands/fix-push-wait-loop.md
+commands/pr-manager.md

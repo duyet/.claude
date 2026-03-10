@@ -17,12 +17,26 @@ My `.claude` configuration for Claude Code.
 | `/pr-manager` | Pull request monitoring and management |
 | `/ultrathink` | Deep analysis with sequential reasoning |
 
-### Global Skills (npx)
+### Suggested Skills
 
 ```bash
-npx -y @modelcontextprotocol/create-server context7  # Documentation lookup
-npx -y @coderabbit/ai-code-review                    # Code review
-npx -y @huggingface/huggingface-mcp                  # Hugging Face integration
+# Documentation lookup
+npx skills add https://github.com/upstash/context7 --skill documentation-lookup
+
+# Code review
+npx skills add https://github.com/coderabbitai/skills --skill code-review
+
+# Frontend design
+npx skills add https://github.com/anthropics/skills --skill frontend-design
+
+# Skill creation
+npx skills add https://github.com/anthropics/skills --skill skill-creator
+
+# PDF tools
+npx skills add https://github.com/anthropics/skills --skill pdf
+
+# Team coordination
+npx skills add https://github.com/duyet/claude-plugins --skill team-coordination
 ```
 
 ## Basic Workflow

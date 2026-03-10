@@ -25,7 +25,7 @@ Execute tests, fix the failed tests, run all tests to make sure the fixes are su
 ## Execution
 
 1. Discover and categorize available tests or giving the specific test names or failed tests and error messages
-2. Try to fix the failed tests, use think or asking sub-agents if the issue is complex
+2. Try to fix the failed tests, use think or asking sub-agents (leader agent or senior engineer agent) if the issue is complex and parallel, working agent in background.
 3. Execute tests with appropriate configuration
 4. Monitor test results and collect metrics
 5. Think about the reason for test failures and apply to fix it for another related tests as well as needed.
