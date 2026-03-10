@@ -42,6 +42,19 @@ npx skills add https://github.com/duyet/claude-plugins --skill team-coordination
 
 # shadcn/ui
 npx skills add https://github.com/shadcn/ui --skill shadcn
+
+# HuggingFace
+npx skills add https://github.com/huggingface/skills --skill hugging-face-cli
+npx skills add https://github.com/huggingface/skills --skill hugging-face-model-trainer
+npx skills add https://github.com/huggingface/skills --skill hugging-face-datasets
+
+# Cloudflare
+npx skills add https://github.com/cloudflare/skills --skill cloudflare
+npx skills add https://github.com/cloudflare/skills --skill wrangler
+
+# LangChain
+npx skills add https://github.com/langchain-ai/langchain-skills --skill langgraph-fundamentals
+npx skills add https://github.com/langchain-ai/deepagents --skill langgraph-docs
 ```
 
 ## Basic Workflow
