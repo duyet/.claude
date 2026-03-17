@@ -1,13 +1,29 @@
 # Entry Point
 
+@COMMANDS.md
 @PRINCIPLES.md
 @RULES.md
-@MODES.md
+@MCP.md
+@ORCHESTRATOR.md
+
+
+# Behavioral Modes
+@MODE_Brainstorming.md
+@MODE_Business_Panel.md
+@MODE_DeepResearch.md
+@MODE_Introspection.md
+@MODE_Orchestration.md
+@MODE_Task_Management.md
+@MODE_Token_Efficiency.md
+
+# MCP Documentation
+@MCP_Context7.md
+@MCP_Sequential.md
 
 # Git Workflow
 
-- Follow semantic commit format with consistent scope
-- Use simple English—avoid words like "comprehensive", "elaborate", "extensive"
+- follow semantic commit format with consistent scope
+- use simple English—avoid words like "comprehensive", "elaborate", "extensive"
 
 # Shortcuts
 
@@ -15,6 +31,8 @@
 - `cp` → commit and push (`/commit:and-push`)
 - `ok`, `c`, `continue` → acknowledge and continue
 - `p`, `parallel` → assign tasks to multiple agents in parallel
+- `t`, `team` → active team of agents to execute tasks in parallel
+- `babysit` → starting babysit the target pr or all prs, reading review comments, and consider to update pr until the pr can merged or closed.
 
 # Notes
 
@@ -28,7 +46,7 @@
 - Save progress to memory before context refresh
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution
-- Use sub-agents whenever possible to maximize parallelism
+- In batch mode: after plan should spawn a team of agents to execute tasks in parallel
 - Assign simple tasks to junior agents, complex tasks to senior agents
-- Always spawn a team to work in parallel if possible
+- Use sub-agents whenever possible to maximize parallelism
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
