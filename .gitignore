@@ -25,6 +25,10 @@ teams/
 plans/
 projects/
 
+# Channels and sessions (contain auth tokens, session IDs)
+channels/
+sessions/
+
 # Scheduled tasks
 scheduled_tasks.lock
 

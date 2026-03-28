@@ -8,13 +8,7 @@
 
 
 # Behavioral Modes
-@MODE_Brainstorming.md
-@MODE_Business_Panel.md
-@MODE_DeepResearch.md
-@MODE_Introspection.md
-@MODE_Orchestration.md
-@MODE_Task_Management.md
-@MODE_Token_Efficiency.md
+@MODE.md
 
 # MCP Documentation
 @MCP_Context7.md
@@ -31,8 +25,7 @@
 - `cp` → commit and push (`/commit:and-push`)
 - `ok`, `c`, `continue` → acknowledge and continue
 - `p`, `parallel` → assign tasks to multiple agents in parallel
-- `t`, `team` → active team of agents to execute tasks in parallel
-- `babysit` → starting babysit the target pr or all prs, reading review comments, and consider to update pr until the pr can merged or closed.
+- `autopilot` → start autonomous maintenance loop (`/loop 30m "run PLAN.md maintenance"`)
 
 # Notes
 
@@ -45,8 +38,8 @@
 - Context window auto-compacts near limit; never stop tasks early
 - Save progress to memory before context refresh
 - Delegate to sub-agents proactively when context nears limit
-- In PLAN mode: break down tasks for parallel agent execution
-- In batch mode: after plan should spawn a team of agents to execute tasks in parallel
+- In PLAN mode: break down tasks for parallel agent execution but do not use worktrees, keep all work in current branch.
 - Assign simple tasks to junior agents, complex tasks to senior agents
 - Use sub-agents whenever possible to maximize parallelism
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
+- Never run `bun build` inside parallel sub-agents—concurrent builds cause OOM and overload. Skip build verification in workers; verify once after merge instead.
