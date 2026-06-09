@@ -79,6 +79,29 @@ Strong success criteria = loop independently. Weak criteria ("make it work") = c
 
 **Success signals:** fewer unnecessary diffs, fewer rewrites from overcomplication, clarifying questions come before implementation not after mistakes.
 
+## 5. Surface conflicts, don't average them
+If two patterns contradict, pick one (more recent / more tested).
+Explain why. Flag the other for cleanup.
+Don't blend conflicting patterns.
+
+## 6. Read before you write
+Before adding code, read exports, immediate callers, shared utilities.
+"Looks orthogonal" is dangerous. If unsure why code is structured a way, ask.
+
+## 7. Tests verify intent, not just behavior
+Tests must encode WHY behavior matters, not just WHAT it does.
+A test that can't fail when business logic changes is wrong.
+
+## 8. Match the codebase's conventions, even if you disagree
+Conformance > taste inside the codebase.
+If you genuinely think a convention is harmful, surface it. Don't fork silently.
+
+## 9. Fail loud
+"Completed" is wrong if anything was skipped silently.
+"Tests pass" is wrong if any were skipped.
+Default to surfacing uncertainty, not hiding it.
+
+
 ---
 
 # Shortcuts
@@ -87,6 +110,7 @@ Strong success criteria = loop independently. Weak criteria ("make it work") = c
 |-------|--------|
 | `cm` | Commit changes (`/commit:commit`) |
 | `cp` | Commit and push (`/commit:and-push`) |
+| `cd` | Commit and push and deploy |
 | `cpr` | Commit to branch + create PR (`/commit:and-create-pr`) |
 | `ok`, `c`, `continue` | Continue (acknowledge) |
 | `p`, `parallel` | Assign to multiple agents (`/p`) |
@@ -110,6 +134,18 @@ Strong success criteria = loop independently. Weak criteria ("make it work") = c
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution but do not use worktrees, keep all work in current branch
 - Assign simple tasks to junior agents, complex tasks to senior agents
+- Prefer a cheap model (`sonnet`, or `haiku` for trivial/mechanical work) for sub-agents when their instructions are clear and well-scoped (e.g. fix-CI-then-merge, search, refactor-to-spec). Reserve Opus for genuinely complex reasoning. Pass `model:` on Agent calls / `opts.model` in Workflows. Don't restart running agents just to switch model.
 - Use sub-agents whenever possible to maximize parallelism
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
 - Never run `bun build` inside parallel sub-agents—concurrent builds cause OOM and overload. Skip build verification in workers; verify once after merge instead.
+- Dynamic workflow, Still parallel, still modular, but more flexible and adaptable to task needs. Use judgment to balance modularity with simplicity and speed and cost (system prompt overhead).
+
+<!-- kb:start (managed by kb wire; remove with: kb wire off) -->
+# Knowledge Base — shared brain (~/kb)
+`~/kb` is this machine's CANONICAL, cross-agent memory. When asked to remember / save / note / capture / recall anything durable, use IT — NOT any local or built-in agent memory store.
+On session start, read `~/kb/MEMORY.md` (the index) and open the relevant notes; fetch a note's `sources:` for deeper detail.
+To capture a quick note, append a line `- HH:MM — <note>` to TODAY's inbox file `~/kb/raw/inbox/<YYYY-MM-DD>.md` (exact path; create it if missing), or run `~/kb/bin/kb capture "<note>"`.
+Write durable, public facts as standard notes under `~/kb/memory/` (template: `~/kb/memory/_TEMPLATE.md`).
+After ANY write (capture or note): read the file back to confirm it, then run `~/kb/bin/kb sync` to share it — never claim an unverified write. (Sync does not happen on its own; you must trigger it.)
+Full protocol: `~/kb/AGENTS.md`. Consolidate via `~/kb/DREAM.md`. Public repo — never store secrets, hostnames, IPs, machine names, locations, or anything not already public on the user's blog/CV/GitHub (see AGENTS.md §3).
+<!-- kb:end -->
