@@ -1,6 +1,27 @@
 # Security and state files
 security_warnings_state_*.json
 mcp-needs-auth-cache.json
+.credentials.json
+*.credentials.json
+clauduck.db
+*.db
+
+# Daemon / runtime state (machine-local, may contain auth)
+daemon/
+daemon*.json
+daemon*.lock
+daemon.lock
+daemon-auth-*
+.caveman-active
+.last-cleanup
+.last-update-result.json
+.sag-summary
+.sag-error.log
+gh-pr-status-cache.json
+session-env/
+jobs/
+uploads/
+scheduled-tasks/
 
 # Logs and debug
 logs/

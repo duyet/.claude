@@ -14,6 +14,7 @@
 
 - Semantic commits with consistent scope
 - Simple English—no "comprehensive", "elaborate", "extensive"
+- **Never auto-merge release-please PRs** (titles like `chore(main): release X.Y.Z`, branches `release-please--*`). Do NOT arm `gh pr merge --auto`, do NOT `update-branch` them, do NOT include them in babysit/bulk-merge runs. Leave them for the user to merge manually. Applies to every project.
 
 ---
 
@@ -134,11 +135,13 @@ Default to surfacing uncertainty, not hiding it.
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution but do not use worktrees, keep all work in current branch
 - Assign simple tasks to junior agents, complex tasks to senior agents
-- Prefer a cheap model (`sonnet`, or `haiku` for trivial/mechanical work) for sub-agents when their instructions are clear and well-scoped (e.g. fix-CI-then-merge, search, refactor-to-spec). Reserve Opus for genuinely complex reasoning. Pass `model:` on Agent calls / `opts.model` in Workflows. Don't restart running agents just to switch model.
+- Prefer a cheap model (`sonnet`, or `haiku` for trivial/mechanical work) for sub-agents when their instructions are clear and well-scoped (e.g. fix-CI-then-merge, search, refactor-to-spec). Reserve Opus/Fable for genuinely complex reasoning. Pass `model:` on Agent calls / `opts.model` in Workflows. Don't restart running agents just to switch model.
 - Use sub-agents whenever possible to maximize parallelism
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
 - Never run `bun build` inside parallel sub-agents—concurrent builds cause OOM and overload. Skip build verification in workers; verify once after merge instead.
 - Dynamic workflow, Still parallel, still modular, but more flexible and adaptable to task needs. Use judgment to balance modularity with simplicity and speed and cost (system prompt overhead).
+
+If main is Fable 5 model: to save tokens, keep this main session (fable 5) on planning and frontend tasks, its visual output and ideas are worth the price. for backend and heavier implementation, write a clear spec and dispatch to codex (gpt-5.5 xhigh) with /goal to execute, my quota there sits unused anyway. you may keep the hardest parts in this session
 
 <!-- kb:start (managed by kb wire; remove with: kb wire off) -->
 # Knowledge Base — shared brain (~/kb)
@@ -149,3 +152,4 @@ Write durable, public facts as standard notes under `~/kb/memory/` (template: `~
 After ANY write (capture or note): read the file back to confirm it, then run `~/kb/bin/kb sync` to share it — never claim an unverified write. (Sync does not happen on its own; you must trigger it.)
 Full protocol: `~/kb/AGENTS.md`. Consolidate via `~/kb/DREAM.md`. Public repo — never store secrets, hostnames, IPs, machine names, locations, or anything not already public on the user's blog/CV/GitHub (see AGENTS.md §3).
 <!-- kb:end -->
+
