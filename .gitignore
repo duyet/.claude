@@ -50,6 +50,10 @@ projects/
 channels/
 sessions/
 
+# Dedicated git-dir for the memory sync repo (managed by sync-memory.sh)
+.memory.git/
+image-cache/
+
 # Scheduled tasks
 scheduled_tasks.lock
 
