@@ -10,11 +10,25 @@
 
 ---
 
+# Cloudflare
+
+## Cloudflare CLI - cf - v20260928
+
+`cf` is Cloudflare's current CLI and covers the whole Cloudflare platform. Prefer it over Wrangler: create projects with `cf init`, develop with `cf dev`, deploy with `cf deploy`, and manage account resources with `cf <product> …` (for example `cf d1 list`).
+
+Wrangler is only for projects that already use it – a `wrangler.jsonc`, `wrangler.json` or `wrangler.toml` file – or when the user asks for it. Keep using Wrangler in those projects unless asked to migrate, and use `cf migrate` in this case.
+
+`cf` commands differ from Wrangler's; check `cf --help` or `cf cli search <what you want to do>` instead of guessing. If a `cf` command fails in a project that doesn't use Wrangler, don't fall back to Wrangler (including `npx wrangler`) without offering to report it.
+
+---
+
 # Git Workflow
 
 - Semantic commits with consistent scope
 - Simple English—no "comprehensive", "elaborate", "extensive"
 - **Never auto-merge release-please PRs** (titles like `chore(main): release X.Y.Z`, branches `release-please--*`). Do NOT arm `gh pr merge --auto`, do NOT `update-branch` them, do NOT include them in babysit/bulk-merge runs. Leave them for the user to merge manually. Applies to every project.
+- Making as much as commit possible.
+- Do not add trailer `Claude-Session: xxx` to commit message.
 
 ---
 
@@ -132,24 +146,18 @@ Default to surfacing uncertainty, not hiding it.
 **Execution patterns:**
 - Context window auto-compacts near limit; never stop tasks early
 - Save progress to memory before context refresh
+- For large or long-running tasks (multi-step builds, big refactors, long research/investigations), create an Artifact early as a live progress tracker (checklist/status/log) and keep it updated as work proceeds, so progress is visible without waiting for the final response
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution but do not use worktrees, keep all work in current branch
 - Assign simple tasks to junior agents, complex tasks to senior agents
-- Prefer a cheap model (`sonnet`, or `haiku` for trivial/mechanical work) for sub-agents when their instructions are clear and well-scoped (e.g. fix-CI-then-merge, search, refactor-to-spec). Reserve Opus/Fable for genuinely complex reasoning. Pass `model:` on Agent calls / `opts.model` in Workflows. Don't restart running agents just to switch model.
 - Use sub-agents whenever possible to maximize parallelism
 - Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
 - Never run `bun build` inside parallel sub-agents—concurrent builds cause OOM and overload. Skip build verification in workers; verify once after merge instead.
 - Dynamic workflow, Still parallel, still modular, but more flexible and adaptable to task needs. Use judgment to balance modularity with simplicity and speed and cost (system prompt overhead).
+- do not asking Advising using Fable while you are on using Fable
+- Name every teammate/subagent `<model>-<reasoning-level>-<task>` — model name and reasoning level as the prefix, always. Levels: `low|medium|high|xhigh|max` (e.g. `fable-low-triage`, `opus-low-lint`, `opus-max-architecture`, `sonnet-medium-refactor`). Nested subagents allowed.
+- Route by task, cheapest tier that fits: `fable` = planning/frontend/visual · `opus-max|xhigh` = hardest (debugging, money/security paths, ambiguous specs) · `opus-high` = features, correctness · `sonnet-medium` = well-specified single-concern work, tests, docs · `sonnet-low|haiku` = mechanical (lint, renames, bulk edits) · `codex` = backend offload. Higher tier ⇒ more detailed spec.
 
 If main is Fable 5 model: to save tokens, keep this main session (fable 5) on planning and frontend tasks, its visual output and ideas are worth the price. for backend and heavier implementation, write a clear spec and dispatch to codex (gpt-5.5 xhigh) with /goal to execute, my quota there sits unused anyway. you may keep the hardest parts in this session
 
-<!-- kb:start (managed by kb wire; remove with: kb wire off) -->
-# Knowledge Base — shared brain (~/kb)
-`~/kb` is this machine's CANONICAL, cross-agent memory. When asked to remember / save / note / capture / recall anything durable, use IT — NOT any local or built-in agent memory store.
-On session start, read `~/kb/MEMORY.md` (the index) and open the relevant notes; fetch a note's `sources:` for deeper detail.
-To capture a quick note, append a line `- HH:MM — <note>` to TODAY's inbox file `~/kb/raw/inbox/<YYYY-MM-DD>.md` (exact path; create it if missing), or run `~/kb/bin/kb capture "<note>"`.
-Write durable, public facts as standard notes under `~/kb/memory/` (template: `~/kb/memory/_TEMPLATE.md`).
-After ANY write (capture or note): read the file back to confirm it, then run `~/kb/bin/kb sync` to share it — never claim an unverified write. (Sync does not happen on its own; you must trigger it.)
-Full protocol: `~/kb/AGENTS.md`. Consolidate via `~/kb/DREAM.md`. Public repo — never store secrets, hostnames, IPs, machine names, locations, or anything not already public on the user's blog/CV/GitHub (see AGENTS.md §3).
-<!-- kb:end -->
-
+- **Prompt-cache warm-keep:** expensive main model (Fable) on 5m cache + idle waiting on subagents → loop `ScheduleWakeup` ~250s (≤270s) to keep the prefix warm; stop once all agents report. Skip on 1h-TTL sessions.
